@@ -9,8 +9,8 @@ import {
 
 import { defaultTheme } from "@themes/default-theme";
 
-import { Home } from "@screens/Home";
 import { Loading } from "@components/Loading";
+import { Dashboard } from "@screens/Dashboard";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Poppins_400Regular, Poppins_700Bold });
@@ -22,7 +22,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Home /> : <Loading />}
+      {fontsLoaded ? <Dashboard /> : <Loading />}
     </ThemeProvider>
   );
 }
