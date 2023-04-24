@@ -4,9 +4,9 @@ export const LoadingContainer = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.COLORS.BLUE_500};
+  background-color: ${({ theme }) => theme.COLORS.BLUE};
 `;
 
 export const LoadingIndicator = styled.ActivityIndicator.attrs(({ theme }) => ({
-  color: theme.COLORS.WHITE,
+  color: theme.COLORS.ORANGE,
 }))``;
