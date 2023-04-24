@@ -13,6 +13,7 @@ export const defaultTheme = {
 
   FONT_FAMILY: {
     REGULAR: "Poppins_400Regular",
+    MEDIUM: "Poppins_500Medium",
     BOLD: "Poppins_700Bold",
   },
 
@@ -21,5 +22,6 @@ export const defaultTheme = {
     MD: 16,
     LG: 18,
     XL: 24,
+    XXL: 32,
   },
 };
