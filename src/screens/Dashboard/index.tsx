@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useTheme } from "styled-components";
-import { Feather } from "@expo/vector-icons";
 
 import { UserInfo } from "@components/UserInfo";
 import { HighlightCard } from "@components/HighlightCard";
@@ -13,6 +11,7 @@ import {
   Container,
   Header,
   HeaderContent,
+  Icon,
   Title,
   Transactions,
   TransactionsList,
@@ -41,16 +40,22 @@ export function Dashboard() {
       category: { name: "Alimentação", icon: "coffee" },
       date: "10/04/2023",
     },
-  ]);
 
-  const theme = useTheme();
+    {
+      type: "income",
+      title: "Salário",
+      amount: "R$ 8.500,00",
+      category: { name: "Salário", icon: "dollar-sign" },
+      date: "10/04/2023",
+    },
+  ]);
 
   return (
     <Container>
       <Header>
         <HeaderContent>
           <UserInfo />
-          <Feather name="power" size={24} color={theme.COLORS.ORANGE} />
+          <Icon name="power" />
         </HeaderContent>
       </Header>
 

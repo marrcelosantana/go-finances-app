@@ -1,6 +1,6 @@
-import styled from "styled-components/native";
-import { FlatList } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { Feather } from "@expo/vector-icons";
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
@@ -17,6 +17,11 @@ export const HeaderContent = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const Icon = styled(Feather)`
+  font-size: 24px;
+  color: ${({ theme }) => theme.COLORS.ORANGE};
 `;
 
 export const CardsList = styled.ScrollView`

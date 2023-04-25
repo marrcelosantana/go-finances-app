@@ -47,7 +47,7 @@ export const Category = styled.View`
 export const Icon = styled(Feather)`
   font-size: 18px;
   color: ${({ theme }) => theme.COLORS.TEXT};
-  margin-right: 4px;
+  margin-right: 8px;
 `;
 
 export const Info = styled.Text`

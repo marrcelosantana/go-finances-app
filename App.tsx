@@ -11,7 +11,7 @@ import {
 import { defaultTheme } from "@themes/default-theme";
 
 import { Loading } from "@components/Loading";
-import { Dashboard } from "@screens/Dashboard";
+import { Routes } from "@routes/index";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,7 +27,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Dashboard /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   );
 }
