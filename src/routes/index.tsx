@@ -1,6 +1,6 @@
+import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthRoutes } from "./auth.routes";
-import { View } from "react-native";
 import { useTheme } from "styled-components";
 
 export function Routes() {
