@@ -1,12 +1,48 @@
+import { useState } from "react";
 import { useTheme } from "styled-components";
 import { Feather } from "@expo/vector-icons";
 
 import { UserInfo } from "@components/UserInfo";
 import { HighlightCard } from "@components/HighlightCard";
+import { TransactionCard } from "@components/TransactionCard";
 
-import { CardsList, Container, Header, HeaderContent } from "./styles";
+import { TransactionDTO } from "@models/TransactionDTO";
+
+import {
+  CardsList,
+  Container,
+  Header,
+  HeaderContent,
+  Title,
+  Transactions,
+  TransactionsList,
+} from "./styles";
 
 export function Dashboard() {
+  const [transactions, setTransactions] = useState<TransactionDTO[]>([
+    {
+      type: "income",
+      title: "Desenvolvimento de site",
+      amount: "R$ 17.000,00",
+      category: { name: "Vendas", icon: "dollar-sign" },
+      date: "10/04/2023",
+    },
+    {
+      type: "outcome",
+      title: "Mercado",
+      amount: "R$ 900,00",
+      category: { name: "Alimentação", icon: "coffee" },
+      date: "10/04/2023",
+    },
+    {
+      type: "outcome",
+      title: "Pizza",
+      amount: "R$ 50,00",
+      category: { name: "Alimentação", icon: "coffee" },
+      date: "10/04/2023",
+    },
+  ]);
+
   const theme = useTheme();
 
   return (
@@ -42,6 +78,16 @@ export function Dashboard() {
           type="total"
         />
       </CardsList>
+
+      <Transactions>
+        <Title>Listagem</Title>
+
+        <TransactionsList>
+          {transactions.map((transaction, index) => (
+            <TransactionCard transaction={transaction} key={index + 1} />
+          ))}
+        </TransactionsList>
+      </Transactions>
     </Container>
   );
 }
