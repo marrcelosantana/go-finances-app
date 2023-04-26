@@ -33,7 +33,6 @@ const schema = yup.object({
 export function Register() {
   const [typeSelected, setTypeSelected] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-
   const [category, setCategory] = useState({
     key: "category",
     name: "Categoria",
@@ -42,32 +41,23 @@ export function Register() {
   const navigator = useNavigation<TabNavigatorRouterProps>();
   const toast = useToast();
 
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit, reset } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
 
-  function handleRegister(form: FormData) {
-    if (!typeSelected) {
+  function handleRegister({ name, amount }: FormData) {
+    if (!typeSelected || category.key === "category") {
       return toast.show({
-        title: "Selecione o tipo da transação.",
+        title: "Você esqueceu alguma informação.",
         placement: "top",
         bgColor: "red.500",
         color: "gray.100",
       });
     }
 
-    if (category.key === "category") {
-      return toast.show({
-        title: "Selecione a categoria da transação.",
-        placement: "top",
-        background: "red.500",
-        color: "gray.100",
-      });
-    }
-
     const data = {
-      name: form.name,
-      amount: form.amount,
+      name: name,
+      amount: amount,
       typeSelected,
       category: category.key,
     };
@@ -79,6 +69,13 @@ export function Register() {
       placement: "top",
       background: "green.500",
       color: "gray.100",
+    });
+
+    reset();
+    setTypeSelected("");
+    setCategory({
+      key: "category",
+      name: "Categoria",
     });
 
     navigator.navigate("dashboard");
