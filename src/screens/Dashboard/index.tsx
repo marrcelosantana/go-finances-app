@@ -66,20 +66,20 @@ export function Dashboard() {
       >
         <HighlightCard
           title="Entradas"
-          amount="R$ 17.400,00"
-          lastTransaction="Última entrada dia 13 de abril"
+          amount="R$ 25.500,00"
+          lastTransaction="Última entrada dia 10 de abril"
           type="income"
         />
         <HighlightCard
           title="Saídas"
-          amount="R$ 400,00"
-          lastTransaction="Última saída dia 13 de abril"
+          amount="R$ 950,00"
+          lastTransaction="Última saída dia 10 de abril"
           type="outcome"
         />
         <HighlightCard
           title="Total"
-          amount="R$ 17.000,00"
-          lastTransaction="01 a 13 de abril"
+          amount="R$ 24.550,00"
+          lastTransaction="01 a 10 de abril"
           type="total"
         />
       </CardsList>

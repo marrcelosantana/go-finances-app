@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Modal, TouchableWithoutFeedback, Keyboard, Alert } from "react-native";
+import { Modal, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { useToast } from "native-base";
 
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
@@ -39,22 +40,29 @@ export function Register() {
   });
 
   const navigator = useNavigation<TabNavigatorRouterProps>();
+  const toast = useToast();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { control, handleSubmit } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
 
   function handleRegister(form: FormData) {
     if (!typeSelected) {
-      return Alert.alert("Selecione o tipo da transação.");
+      return toast.show({
+        title: "Selecione o tipo da transação.",
+        placement: "top",
+        bgColor: "red.500",
+        color: "gray.100",
+      });
     }
 
     if (category.key === "category") {
-      return Alert.alert("Selecione a categoria da transação");
+      return toast.show({
+        title: "Selecione a categoria da transação.",
+        placement: "top",
+        background: "red.500",
+        color: "gray.100",
+      });
     }
 
     const data = {
@@ -65,6 +73,13 @@ export function Register() {
     };
 
     console.log(data);
+
+    toast.show({
+      title: "Transação adicionada com sucesso!",
+      placement: "top",
+      background: "green.500",
+      color: "gray.100",
+    });
 
     navigator.navigate("dashboard");
   }
