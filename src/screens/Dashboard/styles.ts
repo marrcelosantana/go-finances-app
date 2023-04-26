@@ -29,7 +29,7 @@ export const Icon = styled(Feather)`
 
 export const CardsList = styled.ScrollView`
   position: absolute;
-  margin-top: ${RFPercentage(18)}px;
+  margin-top: 150px;
 `;
 
 export const Transactions = styled.View`

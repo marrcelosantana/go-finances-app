@@ -14,6 +14,7 @@ import {
   Separator,
   Title,
 } from "./styles";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 interface Category {
   key: string;
@@ -28,30 +29,32 @@ interface Props {
 
 export function CategoryModal({ category, setCategory, closeModal }: Props) {
   return (
-    <Container>
-      <Header>
-        <Title>Categoria</Title>
-      </Header>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Container>
+        <Header>
+          <Title>Categoria</Title>
+        </Header>
 
-      <FlatList
-        data={categories}
-        keyExtractor={(item) => item.key}
-        style={{ flex: 1, width: "100%" }}
-        renderItem={({ item }) => (
-          <Category
-            onPress={() => setCategory(item)}
-            isActive={category.key === item.key}
-          >
-            <Icon name={item.icon} />
-            <Name>{item.name}</Name>
-          </Category>
-        )}
-        ItemSeparatorComponent={() => <Separator />}
-      />
+        <FlatList
+          data={categories}
+          keyExtractor={(item) => item.key}
+          style={{ flex: 1, width: "100%" }}
+          renderItem={({ item }) => (
+            <Category
+              onPress={() => setCategory(item)}
+              isActive={category.key === item.key}
+            >
+              <Icon name={item.icon} />
+              <Name>{item.name}</Name>
+            </Category>
+          )}
+          ItemSeparatorComponent={() => <Separator />}
+        />
 
-      <Footer>
-        <Button title="Selecionar" onPress={closeModal} />
-      </Footer>
-    </Container>
+        <Footer>
+          <Button title="Selecionar" onPress={() => closeModal()} />
+        </Footer>
+      </Container>
+    </GestureHandlerRootView>
   );
 }
