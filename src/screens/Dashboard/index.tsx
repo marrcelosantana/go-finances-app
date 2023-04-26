@@ -12,6 +12,7 @@ import {
   Header,
   HeaderContent,
   Icon,
+  LogoutButton,
   Title,
   Transactions,
   TransactionsList,
@@ -55,7 +56,9 @@ export function Dashboard() {
       <Header>
         <HeaderContent>
           <UserInfo />
-          <Icon name="power" />
+          <LogoutButton>
+            <Icon name="power" />
+          </LogoutButton>
         </HeaderContent>
       </Header>
 

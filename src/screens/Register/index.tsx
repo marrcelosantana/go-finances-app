@@ -119,7 +119,7 @@ export function Register() {
 
             <Actions>
               <TypeButton
-                title="Income"
+                title="Entrada"
                 type="income"
                 onPress={() => {
                   setTypeSelected("income");
@@ -127,7 +127,7 @@ export function Register() {
                 isActive={typeSelected === "income"}
               />
               <TypeButton
-                title="Outcome"
+                title="Saída"
                 type="outcome"
                 onPress={() => {
                   setTypeSelected("outcome");

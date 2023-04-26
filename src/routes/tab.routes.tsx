@@ -53,7 +53,7 @@ export function TabRoutes() {
         name="dashboard"
         component={Dashboard}
         options={{
-          tabBarIcon: ({ color }) => <List size={24} color={color} />,
+          tabBarIcon: ({ color, size }) => <List size={size} color={color} />,
         }}
       />
 
@@ -61,7 +61,9 @@ export function TabRoutes() {
         name="register"
         component={Register}
         options={{
-          tabBarIcon: ({ color }) => <CurrencyDollar size={24} color={color} />,
+          tabBarIcon: ({ color, size }) => (
+            <CurrencyDollar size={size} color={color} />
+          ),
         }}
       />
 
@@ -69,7 +71,9 @@ export function TabRoutes() {
         name="summary"
         component={Summary}
         options={{
-          tabBarIcon: ({ color }) => <ChartPie size={24} color={color} />,
+          tabBarIcon: ({ color, size }) => (
+            <ChartPie size={size} color={color} />
+          ),
         }}
       />
     </Navigator>

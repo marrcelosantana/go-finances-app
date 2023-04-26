@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList } from "react-native";
+
 import { categories } from "@utils/categories";
 import { Button } from "@components/Button";
 

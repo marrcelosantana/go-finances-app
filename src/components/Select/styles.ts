@@ -1,8 +1,8 @@
 import { Feather } from "@expo/vector-icons";
-import { Pressable } from "react-native";
+import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
-export const Container = styled(Pressable)`
+export const Container = styled(RectButton)`
   width: 100%;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
   flex-direction: row;

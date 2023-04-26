@@ -1,5 +1,6 @@
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Feather } from "@expo/vector-icons";
+import { BorderlessButton } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
@@ -18,6 +19,8 @@ export const HeaderContent = styled.View`
   align-items: center;
   justify-content: space-between;
 `;
+
+export const LogoutButton = styled(BorderlessButton)``;
 
 export const Icon = styled(Feather)`
   font-size: 24px;
