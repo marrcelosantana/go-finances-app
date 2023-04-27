@@ -15,14 +15,20 @@ import { Controller, useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
 import { TabNavigatorRouterProps } from "@routes/tab.routes";
 
+import uuid from "react-native-uuid";
+
+import { storageTransactionsCreate } from "@storage/storageTransactions";
+import { TransactionDTO } from "@models/TransactionDTO";
+
 import { Actions, Container, Fields, Form, Header, Title } from "./styles";
+
 interface FormData {
-  name: string;
+  title: string;
   amount: string;
 }
 
 const schema = yup.object({
-  name: yup.string().trim().required("Informe o nome da transação."),
+  title: yup.string().trim().required("Informe o título da transação."),
   amount: yup
     .number()
     .positive()
@@ -45,7 +51,7 @@ export function Register() {
     resolver: yupResolver(schema),
   });
 
-  function handleRegister({ name, amount }: FormData) {
+  async function handleRegister({ title, amount }: FormData) {
     if (!typeSelected || category.key === "category") {
       return toast.show({
         title: "Você esqueceu alguma informação.",
@@ -55,30 +61,41 @@ export function Register() {
       });
     }
 
-    const data = {
-      name: name,
-      amount: amount,
-      typeSelected,
+    const newTransaction: TransactionDTO = {
+      id: String(uuid.v4()),
+      title: title,
+      amount: Number(amount),
+      type: typeSelected,
       category: category.key,
+      date: new Date(),
     };
 
-    console.log(data);
+    try {
+      await storageTransactionsCreate(newTransaction);
 
-    toast.show({
-      title: "Transação adicionada com sucesso!",
-      placement: "top",
-      background: "green.500",
-      color: "gray.100",
-    });
+      toast.show({
+        title: "Transação adicionada com sucesso!",
+        placement: "top",
+        background: "green.500",
+        color: "gray.100",
+      });
 
-    reset();
-    setTypeSelected("");
-    setCategory({
-      key: "category",
-      name: "Categoria",
-    });
+      reset();
+      setTypeSelected("");
+      setCategory({
+        key: "category",
+        name: "Categoria",
+      });
 
-    navigator.navigate("dashboard");
+      navigator.navigate("dashboard");
+    } catch (error) {
+      toast.show({
+        title: "Não foi possível salvar.",
+        placement: "top",
+        bgColor: "red.500",
+        color: "gray.100",
+      });
+    }
   }
 
   return (
@@ -92,7 +109,7 @@ export function Register() {
           <Fields>
             <Controller
               control={control}
-              name="name"
+              name="title"
               render={({ field: { onChange, value } }) => (
                 <Input
                   placeholder="Nome"

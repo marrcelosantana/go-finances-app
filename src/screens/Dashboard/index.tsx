@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useToast } from "native-base";
 
 import { UserInfo } from "@components/UserInfo";
 import { HighlightCard } from "@components/HighlightCard";
 import { TransactionCard } from "@components/TransactionCard";
 
 import { TransactionDTO } from "@models/TransactionDTO";
+
+import {
+  clearStorage,
+  storageTransactionsGetAll,
+} from "@storage/storageTransactions";
 
 import {
   CardsList,
@@ -19,37 +26,42 @@ import {
 } from "./styles";
 
 export function Dashboard() {
-  const [transactions, setTransactions] = useState<TransactionDTO[]>([
-    {
-      type: "income",
-      title: "Desenvolvimento de site",
-      amount: "R$ 17.000,00",
-      category: { name: "Vendas", icon: "dollar-sign" },
-      date: "10/04/2023",
-    },
-    {
-      type: "outcome",
-      title: "Mercado",
-      amount: "R$ 900,00",
-      category: { name: "Alimentação", icon: "coffee" },
-      date: "10/04/2023",
-    },
-    {
-      type: "outcome",
-      title: "Pizza",
-      amount: "R$ 50,00",
-      category: { name: "Alimentação", icon: "coffee" },
-      date: "10/04/2023",
-    },
+  const [transactions, setTransactions] = useState<TransactionDTO[]>([]);
 
-    {
-      type: "income",
-      title: "Salário",
-      amount: "R$ 8.500,00",
-      category: { name: "Salário", icon: "dollar-sign" },
-      date: "10/04/2023",
-    },
-  ]);
+  const toast = useToast();
+
+  async function loadTransactions() {
+    try {
+      const response = await storageTransactionsGetAll();
+      setTransactions(response);
+    } catch (error) {
+      toast.show({
+        title: "Não foi possível carregar os dados.",
+        placement: "top",
+        bgColor: "red.500",
+        color: "gray.100",
+      });
+    }
+  }
+
+  async function removeAllTransactions() {
+    try {
+      await clearStorage();
+    } catch (error) {
+      toast.show({
+        title: "Não foi possível remover os dados.",
+        placement: "top",
+        bgColor: "red.500",
+        color: "gray.100",
+      });
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      loadTransactions();
+    }, [])
+  );
 
   return (
     <Container>

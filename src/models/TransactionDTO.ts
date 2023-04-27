@@ -1,9 +1,8 @@
-import { CategoryDTO } from "./CategoryDTO";
-
 export type TransactionDTO = {
-  type: "income" | "outcome";
+  id: string;
+  type: string;
   title: string;
-  amount: string;
-  category: CategoryDTO;
-  date: string;
+  amount: number;
+  category: string;
+  date: Date;
 };

@@ -1,4 +1,6 @@
 import "react-native-gesture-handler";
+import "intl";
+import "intl/locale-data/jsonp/pt-BR";
 
 import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components";
@@ -15,6 +17,7 @@ import { defaultTheme } from "@themes/default-theme";
 
 import { Loading } from "@components/Loading";
 import { Routes } from "@routes/index";
+
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {

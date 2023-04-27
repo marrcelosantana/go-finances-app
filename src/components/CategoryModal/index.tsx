@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { categories } from "@utils/categories";
 import { Button } from "@components/Button";
@@ -14,7 +15,6 @@ import {
   Separator,
   Title,
 } from "./styles";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 interface Category {
   key: string;
