@@ -1,3 +1,4 @@
+import { amountFormatter } from "@utils/formatters";
 import {
   Amount,
   Container,
@@ -11,7 +12,7 @@ import {
 interface Props {
   type: "income" | "outcome" | "total";
   title: string;
-  amount: string;
+  amount: number;
   lastTransaction: string;
 }
 
@@ -30,7 +31,7 @@ export function HighlightCard({ type, title, amount, lastTransaction }: Props) {
       </Header>
 
       <Footer>
-        <Amount type={type}>{amount}</Amount>
+        <Amount type={type}>{amountFormatter.format(amount)}</Amount>
         <LastTransaction type={type}>{lastTransaction}</LastTransaction>
       </Footer>
     </Container>

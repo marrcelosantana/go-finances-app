@@ -3,7 +3,7 @@ import { LoadingContainer, LoadingIndicator } from "./styles";
 export function Loading() {
   return (
     <LoadingContainer>
-      <LoadingIndicator />
+      <LoadingIndicator size="large" />
     </LoadingContainer>
   );
 }
