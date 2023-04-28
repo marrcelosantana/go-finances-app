@@ -159,6 +159,7 @@ export function Dashboard() {
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => <TransactionCard transaction={item} />}
               showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingBottom: 24 }}
               ListEmptyComponent={() => (
                 <EmptyList>
                   <Money size={36} weight="bold" color={theme.COLORS.TEXT} />

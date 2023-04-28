@@ -20,3 +20,8 @@ export const Title = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZE.LG}px;
   color: ${({ theme }) => theme.COLORS.WHITE};
 `;
+
+export const Content = styled.View`
+  flex: 1;
+  padding: 42px 24px 0 24px;
+`;
