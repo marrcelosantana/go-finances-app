@@ -11,6 +11,7 @@ import { TransactionCard } from "@components/TransactionCard";
 import { Loading } from "@components/Loading";
 
 import { TransactionDTO } from "@models/TransactionDTO";
+import { dateFormatterLong, lastTransactionFormatter } from "@utils/formatters";
 
 import {
   clearStorage,
@@ -32,9 +33,13 @@ import {
 
 export function Dashboard() {
   const [transactions, setTransactions] = useState<TransactionDTO[]>([]);
+
   const [incomesTotal, setIncomesTotal] = useState(0);
   const [outcomesTotal, setOutcomesTotal] = useState(0);
   const [total, setTotal] = useState(0);
+
+  const [lastIncome, setLastIncome] = useState(0);
+  const [lastOutcome, setLastOutcome] = useState(0);
 
   const toast = useToast();
   const theme = useTheme();
@@ -57,6 +62,12 @@ export function Dashboard() {
       setIncomesTotal(incomes);
       setOutcomesTotal(outcomes);
       setTotal(incomes - outcomes);
+
+      const lastIncome = lastTransactionFormatter(data, "income");
+      const lastOutcome = lastTransactionFormatter(data, "outcome");
+
+      setLastIncome(lastIncome);
+      setLastOutcome(lastOutcome);
 
       setTransactions(data);
     } catch (error) {
@@ -109,19 +120,33 @@ export function Dashboard() {
             <HighlightCard
               title="Entradas"
               amount={incomesTotal}
-              lastTransaction="Última entrada dia 10 de abril"
+              lastTransaction={
+                lastIncome > 0
+                  ? `Última entrada dia ${dateFormatterLong.format(
+                      new Date(lastIncome)
+                    )}`
+                  : "Não há transações"
+              }
               type="income"
             />
             <HighlightCard
               title="Saídas"
               amount={outcomesTotal}
-              lastTransaction="Última saída dia 10 de abril"
+              lastTransaction={
+                lastOutcome > 0
+                  ? `Última saída dia ${dateFormatterLong.format(
+                      new Date(lastOutcome)
+                    )}`
+                  : "Não há transações"
+              }
               type="outcome"
             />
             <HighlightCard
               title="Total"
               amount={total}
-              lastTransaction="01 a 10 de abril"
+              lastTransaction={`Extrato até dia ${dateFormatterLong.format(
+                new Date()
+              )}`}
               type="total"
             />
           </CardsList>
