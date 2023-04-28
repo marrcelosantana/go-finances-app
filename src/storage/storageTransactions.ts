@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { TRANSACTION_STORAGE } from "./storageConfig";
 import { TransactionDTO } from "@models/TransactionDTO";
 
@@ -17,7 +18,7 @@ export async function storageTransactionsGetAll() {
 export async function storageTransactionsCreate(transaction: TransactionDTO) {
   const storage = await storageTransactionsGetAll();
 
-  const data = JSON.stringify([...storage, transaction]);
+  const data = JSON.stringify([transaction, ...storage]);
   await AsyncStorage.setItem(TRANSACTION_STORAGE, data);
 }
 

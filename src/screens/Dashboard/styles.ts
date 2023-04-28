@@ -45,9 +45,15 @@ export const Title = styled.Text`
   margin-bottom: 24px;
 `;
 
-export const TransactionsList = styled.ScrollView.attrs({
-  showsVerticalScrollIndicator: false,
-  contentContainerStyle: {
-    paddingBottom: 24,
-  },
-})``;
+export const EmptyList = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30%;
+`;
+
+export const EmptyText = styled.Text`
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  color: ${({ theme }) => theme.COLORS.TEXT};
+  font-size: 16px;
+`;

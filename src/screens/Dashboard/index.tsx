@@ -1,6 +1,9 @@
 import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { Center, useToast } from "native-base";
+import { Center, FlatList, useToast } from "native-base";
+
+import { Money } from "phosphor-react-native";
+import { useTheme } from "styled-components";
 
 import { UserInfo } from "@components/UserInfo";
 import { HighlightCard } from "@components/HighlightCard";
@@ -17,13 +20,14 @@ import {
 import {
   CardsList,
   Container,
+  EmptyList,
+  EmptyText,
   Header,
   HeaderContent,
   Icon,
   LogoutButton,
   Title,
   Transactions,
-  TransactionsList,
 } from "./styles";
 
 export function Dashboard() {
@@ -33,15 +37,16 @@ export function Dashboard() {
   const [total, setTotal] = useState(0);
 
   const toast = useToast();
+  const theme = useTheme();
 
   async function loadTransactions() {
     let incomes = 0;
     let outcomes = 0;
 
     try {
-      const response = await storageTransactionsGetAll();
+      const data = await storageTransactionsGetAll();
 
-      response.map((item) => {
+      data.map((item) => {
         if (item.type === "income") {
           incomes += item.amount;
         } else {
@@ -53,7 +58,7 @@ export function Dashboard() {
       setOutcomesTotal(outcomes);
       setTotal(incomes - outcomes);
 
-      setTransactions(response);
+      setTransactions(data);
     } catch (error) {
       toast.show({
         title: "Não foi possível carregar os dados.",
@@ -124,11 +129,18 @@ export function Dashboard() {
           <Transactions>
             <Title>Listagem</Title>
 
-            <TransactionsList>
-              {transactions.map((transaction, index) => (
-                <TransactionCard transaction={transaction} key={index + 1} />
-              ))}
-            </TransactionsList>
+            <FlatList
+              data={transactions}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => <TransactionCard transaction={item} />}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={() => (
+                <EmptyList>
+                  <Money size={36} weight="bold" color={theme.COLORS.TEXT} />
+                  <EmptyText>Sem transações ainda.</EmptyText>
+                </EmptyList>
+              )}
+            />
           </Transactions>
         </Container>
       ) : (
