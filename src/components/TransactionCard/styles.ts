@@ -21,6 +21,7 @@ export const Header = styled.View``;
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
   color: ${({ theme }) => theme.COLORS.TITLE};
+  text-transform: capitalize;
 `;
 
 export const Amount = styled.Text<TypeProps>`

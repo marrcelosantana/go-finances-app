@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { Center, FlatList, useToast } from "native-base";
 
-import { Money } from "phosphor-react-native";
+import { Coins } from "phosphor-react-native";
 import { useTheme } from "styled-components";
 
 import { UserInfo } from "@components/UserInfo";
@@ -162,7 +162,7 @@ export function Dashboard() {
               contentContainerStyle={{ paddingBottom: 24 }}
               ListEmptyComponent={() => (
                 <EmptyList>
-                  <Money size={36} weight="bold" color={theme.COLORS.TEXT} />
+                  <Coins size={36} weight="bold" color={theme.COLORS.TEXT} />
                   <EmptyText>Sem transações ainda.</EmptyText>
                 </EmptyList>
               )}
