@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { Alert } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { Center, FlatList, useToast } from "native-base";
 
@@ -16,6 +17,7 @@ import { dateFormatterLong, lastTransactionFormatter } from "@utils/formatters";
 import {
   clearStorage,
   storageTransactionsGetAll,
+  storageTransactionsRemove,
 } from "@storage/storageTransactions";
 
 import {
@@ -80,9 +82,39 @@ export function Dashboard() {
     }
   }
 
+  async function removeTransaction(id: string) {
+    try {
+      await storageTransactionsRemove(id);
+
+      toast.show({
+        title: "Transação removida com sucesso!",
+        placement: "top",
+        bgColor: "green.500",
+        color: "gray.100",
+      });
+
+      await loadTransactions();
+    } catch (error) {
+      toast.show({
+        title: "Não foi possível remover a transação.",
+        placement: "top",
+        bgColor: "red.500",
+        color: "gray.100",
+      });
+    }
+  }
+
+  async function onRemove(id: string) {
+    Alert.alert("Remover", "Deseja remover a transação?", [
+      { text: "Não", style: "cancel" },
+      { text: "Sim", onPress: () => removeTransaction(id) },
+    ]);
+  }
+
   async function removeAllTransactions() {
     try {
       await clearStorage();
+      await loadTransactions();
     } catch (error) {
       toast.show({
         title: "Não foi possível remover os dados.",
@@ -106,7 +138,7 @@ export function Dashboard() {
           <Header>
             <HeaderContent>
               <UserInfo />
-              <LogoutButton>
+              <LogoutButton onPress={removeAllTransactions}>
                 <Icon name="power" />
               </LogoutButton>
             </HeaderContent>
@@ -157,7 +189,12 @@ export function Dashboard() {
             <FlatList
               data={transactions}
               keyExtractor={(item) => item.id}
-              renderItem={({ item }) => <TransactionCard transaction={item} />}
+              renderItem={({ item }) => (
+                <TransactionCard
+                  transaction={item}
+                  handleRemoveTransaction={onRemove}
+                />
+              )}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ paddingBottom: 24 }}
               ListEmptyComponent={() => (

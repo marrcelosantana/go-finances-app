@@ -16,10 +16,29 @@ export async function storageTransactionsGetAll() {
 }
 
 export async function storageTransactionsCreate(transaction: TransactionDTO) {
-  const storage = await storageTransactionsGetAll();
+  try {
+    const storage = await storageTransactionsGetAll();
 
-  const data = JSON.stringify([transaction, ...storage]);
-  await AsyncStorage.setItem(TRANSACTION_STORAGE, data);
+    const data = JSON.stringify([transaction, ...storage]);
+    await AsyncStorage.setItem(TRANSACTION_STORAGE, data);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function storageTransactionsRemove(id: string) {
+  try {
+    const storage = await storageTransactionsGetAll();
+
+    const storageFiltered = storage.filter(
+      (transaction: TransactionDTO) => transaction.id !== id
+    );
+
+    const newStorage = JSON.stringify(storageFiltered);
+    await AsyncStorage.setItem(TRANSACTION_STORAGE, newStorage);
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function clearStorage() {

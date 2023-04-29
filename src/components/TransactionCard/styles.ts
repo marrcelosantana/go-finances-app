@@ -1,5 +1,7 @@
 import { Feather } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
+import { BorderlessButton } from "react-native-gesture-handler";
+
 import styled from "styled-components/native";
 
 interface TypeProps {
@@ -17,6 +19,14 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View``;
+
+export const TitleContainer = styled.View`
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+`;
+
+export const DeleteButton = styled(BorderlessButton)``;
 
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
