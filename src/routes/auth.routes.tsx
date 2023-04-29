@@ -7,7 +7,7 @@ import { SignIn } from "@screens/SignIn";
 import { TabRoutes } from "./tab.routes";
 
 type AuthRoutes = {
-  // signIn: undefined;
+  signIn: undefined;
   tabs: undefined;
 };
 
@@ -19,7 +19,7 @@ const { Navigator, Screen } = createNativeStackNavigator<AuthRoutes>();
 export function AuthRoutes() {
   return (
     <Navigator screenOptions={{ headerShown: false }}>
-      {/* <Screen name="signIn" component={SignIn} /> */}
+      <Screen name="signIn" component={SignIn} />
       <Screen name="tabs" component={TabRoutes} />
     </Navigator>
   );
