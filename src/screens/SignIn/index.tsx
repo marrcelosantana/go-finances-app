@@ -1,6 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
-import { TabNavigatorRouterProps } from "@routes/tab.routes";
-
 import AppleSvg from "../../assets/apple.svg";
 import GoogleSvg from "../../assets/google.svg";
 import LogoSvg from "../../assets/logo.svg";
@@ -8,6 +5,7 @@ import LogoSvg from "../../assets/logo.svg";
 import { RFValue } from "react-native-responsive-fontsize";
 
 import { SocialButton } from "@components/SocialButton";
+import { useAuth } from "@hooks/useAuth";
 
 import {
   Container,
@@ -19,7 +17,7 @@ import {
 } from "./styles";
 
 export function SignIn() {
-  const navigator = useNavigation<TabNavigatorRouterProps>();
+  const { user } = useAuth();
 
   return (
     <Container>
