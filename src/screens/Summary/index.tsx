@@ -102,7 +102,7 @@ export function Summary() {
 
       setTransactions(data);
     } catch (error) {
-      toast.show({
+      await toast.show({
         title: "Não foi possível carregar os dados.",
         placement: "top",
         bgColor: "red.500",

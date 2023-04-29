@@ -73,7 +73,7 @@ export function Dashboard() {
 
       setTransactions(data);
     } catch (error) {
-      toast.show({
+      await toast.show({
         title: "Não foi possível carregar os dados.",
         placement: "top",
         bgColor: "red.500",
@@ -86,8 +86,8 @@ export function Dashboard() {
     try {
       await storageTransactionsRemove(id);
 
-      toast.show({
-        title: "Transação removida com sucesso!",
+      await toast.show({
+        title: "Transação removida!",
         placement: "top",
         bgColor: "green.500",
         color: "gray.100",
@@ -95,7 +95,7 @@ export function Dashboard() {
 
       await loadTransactions();
     } catch (error) {
-      toast.show({
+      await toast.show({
         title: "Não foi possível remover a transação.",
         placement: "top",
         bgColor: "red.500",
@@ -116,7 +116,7 @@ export function Dashboard() {
       await clearStorage();
       await loadTransactions();
     } catch (error) {
-      toast.show({
+      await toast.show({
         title: "Não foi possível remover os dados.",
         placement: "top",
         bgColor: "red.500",

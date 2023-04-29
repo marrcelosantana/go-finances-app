@@ -73,7 +73,7 @@ export function Register() {
     try {
       await storageTransactionsCreate(newTransaction);
 
-      toast.show({
+      await toast.show({
         title: "Transação adicionada com sucesso!",
         placement: "top",
         background: "green.500",
@@ -89,7 +89,7 @@ export function Register() {
 
       navigator.navigate("dashboard");
     } catch (error) {
-      toast.show({
+      await toast.show({
         title: "Não foi possível salvar.",
         placement: "top",
         bgColor: "red.500",
