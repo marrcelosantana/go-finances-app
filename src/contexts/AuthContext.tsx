@@ -11,7 +11,7 @@ interface AuthProviderProps {
 export const AuthContext = createContext<AuthDataProps>({} as AuthDataProps);
 
 export function AuthContextProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState("Marcelo");
+  const [user, setUser] = useState("Marcelo Santana");
 
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
