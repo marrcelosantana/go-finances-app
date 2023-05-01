@@ -13,7 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 
 import { useNavigation } from "@react-navigation/native";
-import { TabNavigatorRouterProps } from "@routes/tab.routes";
+import { AppNavigatorRouterProps } from "@routes/app.routes";
 
 import uuid from "react-native-uuid";
 
@@ -44,7 +44,7 @@ export function Register() {
     name: "Categoria",
   });
 
-  const navigator = useNavigation<TabNavigatorRouterProps>();
+  const navigator = useNavigation<AppNavigatorRouterProps>();
   const toast = useToast();
 
   const { control, handleSubmit, reset } = useForm<FormData>({

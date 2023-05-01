@@ -1,16 +1,16 @@
+import { useAuth } from "@hooks/useAuth";
 import { Avatar, Container, Info, Title, Username } from "./styles";
 
 export function UserInfo() {
+  const { user } = useAuth();
+
   return (
     <Container>
-      <Avatar
-        source={{ uri: "http://github.com/marrcelosantana.png" }}
-        resizeMode="cover"
-      />
+      <Avatar source={{ uri: user.photo }} resizeMode="cover" />
 
       <Info>
         <Title>Olá,</Title>
-        <Username numberOfLines={1}>Marcelo</Username>
+        <Username numberOfLines={1}>{user.name}</Username>
       </Info>
     </Container>
   );

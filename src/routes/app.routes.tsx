@@ -13,7 +13,7 @@ import { ChartPie, CurrencyDollar, List } from "phosphor-react-native";
 
 import { useTheme } from "styled-components";
 
-type TabRoutes = {
+type AppRoutes = {
   dashboard: undefined;
   register: undefined;
   summary: undefined;
@@ -21,9 +21,9 @@ type TabRoutes = {
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-export type TabNavigatorRouterProps = BottomTabNavigationProp<TabRoutes>;
+export type AppNavigatorRouterProps = BottomTabNavigationProp<AppRoutes>;
 
-export function TabRoutes() {
+export function AppRoutes() {
   const theme = useTheme();
 
   return (

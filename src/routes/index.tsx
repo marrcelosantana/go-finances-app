@@ -1,15 +1,21 @@
 import { View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { AuthRoutes } from "./auth.routes";
 import { useTheme } from "styled-components";
 
+import { NavigationContainer } from "@react-navigation/native";
+
+import { useAuth } from "@hooks/useAuth";
+
+import { AuthRoutes } from "./auth.routes";
+import { AppRoutes } from "./app.routes";
+
 export function Routes() {
+  const { user } = useAuth();
   const theme = useTheme();
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.COLORS.BACKGROUND }}>
       <NavigationContainer>
-        <AuthRoutes />
+        {user.id ? <AppRoutes /> : <AuthRoutes />}
       </NavigationContainer>
     </View>
   );
