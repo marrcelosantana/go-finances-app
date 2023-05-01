@@ -19,6 +19,7 @@ import uuid from "react-native-uuid";
 
 import { storageTransactionsCreate } from "@storage/storageTransactions";
 import { TransactionDTO } from "@models/TransactionDTO";
+import { useAuth } from "@hooks/useAuth";
 
 import { Actions, Container, Fields, Form, Header, Title } from "./styles";
 
@@ -37,6 +38,8 @@ const schema = yup.object({
 });
 
 export function Register() {
+  const { user } = useAuth();
+
   const [typeSelected, setTypeSelected] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [category, setCategory] = useState({
@@ -71,7 +74,7 @@ export function Register() {
     };
 
     try {
-      await storageTransactionsCreate(newTransaction);
+      await storageTransactionsCreate(newTransaction, user.id);
 
       await toast.show({
         title: "Transação adicionada com sucesso!",

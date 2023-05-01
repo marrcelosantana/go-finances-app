@@ -16,6 +16,8 @@ import { VictoryPie } from "victory-native";
 import { addMonths, subMonths, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
+import { useAuth } from "@hooks/useAuth";
+
 import {
   ArrowButton,
   ChartContainer,
@@ -38,6 +40,8 @@ interface CategoryData {
 }
 
 export function Summary() {
+  const { user } = useAuth();
+
   const [transactions, setTransactions] = useState<TransactionDTO[]>([]);
   const [totalByCategory, setTotalByCategory] = useState<CategoryData[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -57,7 +61,7 @@ export function Summary() {
 
   async function loadTransactions() {
     try {
-      const data = await storageTransactionsGetAll();
+      const data = await storageTransactionsGetAll(user.id);
       const totalByCategory: CategoryData[] = [];
 
       const outcomes = data.filter(

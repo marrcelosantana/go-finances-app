@@ -27,12 +27,3 @@ export async function storageUserRemove() {
     throw error;
   }
 }
-
-export async function clearStorage() {
-  try {
-    await AsyncStorage.clear();
-    console.log("Storage clear!");
-  } catch (error) {
-    throw error;
-  }
-}

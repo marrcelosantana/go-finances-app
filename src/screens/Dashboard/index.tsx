@@ -16,7 +16,6 @@ import { dateFormatterLong, lastTransactionFormatter } from "@utils/formatters";
 import { useAuth } from "@hooks/useAuth";
 
 import {
-  clearStorage,
   storageTransactionsGetAll,
   storageTransactionsRemove,
 } from "@storage/storageTransactions";
@@ -35,7 +34,7 @@ import {
 } from "./styles";
 
 export function Dashboard() {
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
 
   const [transactions, setTransactions] = useState<TransactionDTO[]>([]);
 
@@ -54,7 +53,7 @@ export function Dashboard() {
     let outcomes = 0;
 
     try {
-      const data = await storageTransactionsGetAll();
+      const data = await storageTransactionsGetAll(user.id);
 
       data.map((item) => {
         if (item.type === "income") {
@@ -85,9 +84,9 @@ export function Dashboard() {
     }
   }
 
-  async function removeTransaction(id: string) {
+  async function removeTransaction(transactionId: string) {
     try {
-      await storageTransactionsRemove(id);
+      await storageTransactionsRemove(transactionId, user.id);
 
       await toast.show({
         title: "Transação removida!",
