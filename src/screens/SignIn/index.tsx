@@ -18,7 +18,7 @@ import {
 } from "./styles";
 
 export function SignIn() {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, signInWithApple } = useAuth();
 
   const toast = useToast();
 
@@ -27,7 +27,20 @@ export function SignIn() {
       await signInWithGoogle();
     } catch (error) {
       await toast.show({
-        title: "Não foi possível conectar a conta google.",
+        title: "Não foi possível conectar a conta Google.",
+        placement: "top",
+        bgColor: "red.500",
+        color: "gray.100",
+      });
+    }
+  }
+
+  async function handleSignInWithApple() {
+    try {
+      await signInWithApple();
+    } catch (error) {
+      await toast.show({
+        title: "Não foi possível conectar a conta Apple.",
         placement: "top",
         bgColor: "red.500",
         color: "gray.100",
@@ -52,7 +65,11 @@ export function SignIn() {
             svg={GoogleSvg}
             onPress={handleSignInWithGoogle}
           />
-          <SocialButton title="Entrar com Apple" svg={AppleSvg} />
+          <SocialButton
+            title="Entrar com Apple"
+            svg={AppleSvg}
+            onPress={handleSignInWithApple}
+          />
         </Social>
       </Footer>
     </Container>
