@@ -18,10 +18,13 @@ import { AuthContextProvider } from "@contexts/AuthContext";
 
 import { Loading } from "@components/Loading";
 import { Routes } from "@routes/index";
+import { useAuth } from "@hooks/useAuth";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
+  const { userLoading } = useAuth();
+
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -38,7 +41,7 @@ export default function App() {
             translucent
           />
           <AuthContextProvider>
-            {fontsLoaded ? <Routes /> : <Loading />}
+            {fontsLoaded || userLoading ? <Routes /> : <Loading />}
           </AuthContextProvider>
         </ThemeProvider>
       </NativeBaseProvider>

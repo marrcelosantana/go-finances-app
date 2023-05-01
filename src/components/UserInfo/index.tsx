@@ -6,7 +6,7 @@ export function UserInfo() {
 
   return (
     <Container>
-      <Avatar source={{ uri: user.photo }} resizeMode="cover" />
+      <Avatar source={{ uri: user.picture }} resizeMode="cover" />
 
       <Info>
         <Title>Olá,</Title>

@@ -13,6 +13,7 @@ import {
 
 export interface AuthDataProps {
   user: UserDTO;
+  userLoading: boolean;
   signInWithGoogle: () => Promise<void>;
   signInWithApple: () => Promise<void>;
   signOut(): Promise<void>;
@@ -33,7 +34,7 @@ export const AuthContext = createContext<AuthDataProps>({} as AuthDataProps);
 
 export function AuthContextProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserDTO>({} as UserDTO);
-  const [isLoading, setIsLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(true);
 
   const toast = useToast();
 
@@ -59,9 +60,9 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
 
         setUser({
           id: userInfo.id,
-          name: userInfo.given_name,
+          name: userInfo.name,
           email: userInfo.email,
-          photo: userInfo.picture,
+          picture: userInfo.picture,
         });
 
         await storageUserCreate(userInfo);
@@ -81,11 +82,14 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
       });
 
       if (credential) {
+        const name = credential.fullName!.givenName!;
+        const picture = `https://ui-avatars.com/api/?name=${name}&lenght=1`;
+
         const userInfo = {
           id: String(credential.user),
           email: credential.email!,
-          name: credential.fullName!.givenName!,
-          photo: undefined,
+          name,
+          picture,
         };
 
         setUser(userInfo);
@@ -98,8 +102,8 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
 
   async function signOut() {
     try {
-      setUser({} as UserDTO);
       await storageUserRemove();
+      setUser({} as UserDTO);
     } catch (error) {
       throw new Error(String(error));
     }
@@ -109,7 +113,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     try {
       const response = await storageUserGet();
       setUser(response);
-      setIsLoading(false);
+      setUserLoading(false);
     } catch (error) {
       await toast.show({
         title: "Não foi possível logar!",
@@ -122,12 +126,11 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     loadUser();
-    console.log(user);
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ user, signInWithGoogle, signInWithApple, signOut }}
+      value={{ user, userLoading, signInWithGoogle, signInWithApple, signOut }}
     >
       {children}
     </AuthContext.Provider>
