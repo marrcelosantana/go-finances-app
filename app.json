@@ -2,6 +2,7 @@
   "expo": {
     "name": "go-finances-app",
     "slug": "go-finances-app",
+    "scheme": "go-finances-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

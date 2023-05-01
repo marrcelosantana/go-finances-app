@@ -3,6 +3,7 @@ import GoogleSvg from "../../assets/google.svg";
 import LogoSvg from "../../assets/logo.svg";
 
 import { RFValue } from "react-native-responsive-fontsize";
+import { useToast } from "native-base";
 
 import { SocialButton } from "@components/SocialButton";
 import { useAuth } from "@hooks/useAuth";
@@ -17,7 +18,22 @@ import {
 } from "./styles";
 
 export function SignIn() {
-  const { user } = useAuth();
+  const { signInWithGoogle } = useAuth();
+
+  const toast = useToast();
+
+  async function handleSignInWithGoogle() {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      await toast.show({
+        title: "Não foi possível conectar a conta google.",
+        placement: "top",
+        bgColor: "red.500",
+        color: "gray.100",
+      });
+    }
+  }
 
   return (
     <Container>
@@ -31,7 +47,11 @@ export function SignIn() {
 
       <Footer>
         <Social>
-          <SocialButton title="Entrar com Google" svg={GoogleSvg} />
+          <SocialButton
+            title="Entrar com Google"
+            svg={GoogleSvg}
+            onPress={handleSignInWithGoogle}
+          />
           <SocialButton title="Entrar com Apple" svg={AppleSvg} />
         </Social>
       </Footer>
