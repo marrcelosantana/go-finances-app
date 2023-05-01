@@ -13,6 +13,7 @@ import { Loading } from "@components/Loading";
 
 import { TransactionDTO } from "@models/TransactionDTO";
 import { dateFormatterLong, lastTransactionFormatter } from "@utils/formatters";
+import { useAuth } from "@hooks/useAuth";
 
 import {
   clearStorage,
@@ -34,6 +35,8 @@ import {
 } from "./styles";
 
 export function Dashboard() {
+  const { signOut } = useAuth();
+
   const [transactions, setTransactions] = useState<TransactionDTO[]>([]);
 
   const [incomesTotal, setIncomesTotal] = useState(0);
@@ -111,13 +114,12 @@ export function Dashboard() {
     ]);
   }
 
-  async function removeAllTransactions() {
+  async function handleSignOut() {
     try {
-      await clearStorage();
-      await loadTransactions();
+      await signOut();
     } catch (error) {
       await toast.show({
-        title: "Não foi possível remover os dados.",
+        title: "Não foi possível deslogar.",
         placement: "top",
         bgColor: "red.500",
         color: "gray.100",
@@ -138,7 +140,7 @@ export function Dashboard() {
           <Header>
             <HeaderContent>
               <UserInfo />
-              <LogoutButton onPress={removeAllTransactions}>
+              <LogoutButton onPress={handleSignOut}>
                 <Icon name="power" />
               </LogoutButton>
             </HeaderContent>

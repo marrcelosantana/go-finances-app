@@ -1,15 +1,21 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import { useToast } from "native-base";
 
 import * as AuthSession from "expo-auth-session";
 import * as AppleAuthentication from "expo-apple-authentication";
-
 import { UserDTO } from "@models/UsetDTO";
-import { storageUserCreate } from "@storage/storageUser";
+
+import {
+  storageUserCreate,
+  storageUserGet,
+  storageUserRemove,
+} from "@storage/storageUser";
 
 export interface AuthDataProps {
   user: UserDTO;
   signInWithGoogle: () => Promise<void>;
   signInWithApple: () => Promise<void>;
+  signOut(): Promise<void>;
 }
 
 interface AuthProviderProps {
@@ -27,6 +33,9 @@ export const AuthContext = createContext<AuthDataProps>({} as AuthDataProps);
 
 export function AuthContextProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserDTO>({} as UserDTO);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const toast = useToast();
 
   async function signInWithGoogle() {
     try {
@@ -87,8 +96,39 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     }
   }
 
+  async function signOut() {
+    try {
+      setUser({} as UserDTO);
+      await storageUserRemove();
+    } catch (error) {
+      throw new Error(String(error));
+    }
+  }
+
+  async function loadUser() {
+    try {
+      const response = await storageUserGet();
+      setUser(response);
+      setIsLoading(false);
+    } catch (error) {
+      await toast.show({
+        title: "Não foi possível logar!",
+        placement: "top",
+        background: "red.500",
+        color: "gray.100",
+      });
+    }
+  }
+
+  useEffect(() => {
+    loadUser();
+    console.log(user);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle, signInWithApple }}>
+    <AuthContext.Provider
+      value={{ user, signInWithGoogle, signInWithApple, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
