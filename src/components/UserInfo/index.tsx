@@ -4,8 +4,6 @@ import { Avatar, Container, Info, Title, Username } from "./styles";
 export function UserInfo() {
   const { user } = useAuth();
 
-  console.log(user);
-
   return (
     <Container>
       <Avatar source={{ uri: user.picture }} resizeMode="cover" />
