@@ -49,8 +49,6 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
           email: userInfo.email,
           photo: userInfo.picture,
         });
-
-        console.log(userInfo);
       }
     } catch (error) {
       throw new Error(String(error));
